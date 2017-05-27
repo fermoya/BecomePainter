@@ -1,36 +1,75 @@
 package com.example.fmoyader.becomepainter;
 
-import android.graphics.BlurMaskFilter;
-import android.graphics.EmbossMaskFilter;
-import android.graphics.MaskFilter;
-import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.example.fmoyader.becomepainter.canvas.view.DrawingView;
+import com.example.fmoyader.becomepainter.canvas.dto.Painting;
+import com.example.fmoyader.becomepainter.canvas.view.CanvasView;
+import com.example.fmoyader.becomepainter.dialogs.SavePaintingDialogFragment;
+import com.example.fmoyader.becomepainter.preferences.DrawingPreferencesManager;
+import com.example.fmoyader.becomepainter.utils.SQLiteUtils;
 
-public class CanvasActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CanvasActivity extends AppCompatActivity implements SavePaintingDialogFragment.OnPositiveButtonListener {
+
+    @BindView(R.id.canvas)
+    CanvasView canvasView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_canvas);
+        ButterKnife.bind(this);
+    }
 
-        //setContentView(R.layout.activity_canvas);
+    public void startSavePaintingDialog(View view) {
+        SavePaintingDialogFragment dialogFragment = new SavePaintingDialogFragment();
+        dialogFragment.setListener(this);
+        dialogFragment.show(getSupportFragmentManager(), null);
 
-        DrawingView drawingView = new DrawingView(this);
-        drawingView.setDrawingCacheEnabled(true);
-        //mv.setBackgroundResource(R.drawable.afor);//set the back ground if you wish to
-        setContentView(drawingView);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setDither(true);
-        paint.setColor(0xFFFF0000);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(20);
-        MaskFilter embossMaskFilter = new EmbossMaskFilter(new float[]{1, 1, 1},
-                0.4f, 6, 3.5f);
-        MaskFilter blurMaskFilter = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
+        getSupportFragmentManager().executePendingTransactions();
+        AlertDialog dialog = (AlertDialog) dialogFragment.getDialog();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(dialogFragment.positiveClickListener);
+    }
+
+    public void startErasePaintingDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_erase_painting_title))
+                .setMessage(getString(R.string.dialog_erase_painting_message))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.alert_erase_text), null)
+                .setNegativeButton(R.string.alert_cancel_text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        DrawingPreferencesManager.getInstance(this).setPendingPainting();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onInfoValidated(String title, String author, String description) {
+        Painting painting = canvasView.getPainting();
+        if (!painting.isBlank()) {
+            painting.setAuthor(author);
+            painting.setDescription(description);
+            painting.setTitle(title);
+
+            //TODO: hacerlo en background
+            SQLiteUtils.persistInDatabase(painting, this);
+            canvasView.reset();
+        }
+
     }
 }

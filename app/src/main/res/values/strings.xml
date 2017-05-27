@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">BecomePainter</string>
+
+    <!-- BUTTONS DRAWING ACTIVITY -->
+    <string name="button_save_text">SAVE</string>
+    <string name="button_erase_text">ERASE</string>
+
+    <!-- ERROR TAGS -->
+    <string name="error_sqlite_tag" translatable="false">SQLITE_ERROR</string>
+    <string name="dialog_erase_painting_message">Are you sure you want to erase your painting? You will not be able to get it back.</string>
+    <string name="dialog_erase_painting_title">ERASING PAINTING</string>
+
+    <!-- PREFERENCES -->
+    <string name="preference_pending_painting">preference_pending_painting</string>
+
+    <!-- ALERT -->
+    <string name="alert_cancel_text">CANCEL</string>
+    <string name="alert_save_text">@string/button_save_text</string>
+    <string name="alert_erase_text">@string/button_erase_text</string>
+    <string name="author">*Author</string>
+    <string name="description">Description</string>
+    <string name="dialog_title_hint">*Title</string>
+    <string name="dialog_alert_title">Save painting?</string>
+    <string name="alert_error_fill_required_fields_message">Please, fill in the required fieds</string>
 </resources>

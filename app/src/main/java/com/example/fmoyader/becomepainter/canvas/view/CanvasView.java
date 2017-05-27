@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +17,7 @@ import com.example.fmoyader.becomepainter.canvas.dto.Point;
  * Created by fmoyader on 24/5/17.
  */
 
-public class DrawingView extends View {
+public class CanvasView extends View {
 
     private static final float TOLERANCE_MIN_DISTANCE = 4;
 
@@ -24,12 +25,22 @@ public class DrawingView extends View {
     private Paint paint;
     private Painting painting;
     private Line line;
+    private boolean newPainting;
 
-    public DrawingView(Context context) {
+    public CanvasView(Context context) {
         super(context);
-        this.context = context;
-        painting = new Painting();
+        initialize(context);
+    }
 
+    public CanvasView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initialize(context);
+    }
+
+    public void initialize(Context context) {
+        this.context = context;
+
+        newPainting = true;
         paint = new Paint(Paint.DITHER_FLAG);
         paint.setStrokeWidth(5.0f);
         paint.setColor(Color.RED);
@@ -38,8 +49,10 @@ public class DrawingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (line != null) {
-            line.drawInCanvas(canvas);
+        if (!newPainting) {
+            painting.drawLineInCanvas(line, canvas);
+        } else {
+            painting = new Painting();
         }
     }
 
@@ -65,10 +78,6 @@ public class DrawingView extends View {
     private void touchFinishAt(Point point) {
         line.moveToPoint(point);
         invalidate();
-
-        painting.saveLine(line);
-        //paint = new Paint();
-        //line = new Line(paint);
     }
 
     private void touchMoveAt(Point newPoint) {
@@ -87,5 +96,14 @@ public class DrawingView extends View {
     private void touchStartAt(Point point) {
         line = new Line(paint);
         line.moveToPoint(point);
+    }
+
+    public Painting getPainting() {
+        return painting;
+    }
+
+    public void reset() {
+        newPainting = true;
+        invalidate();
     }
 }

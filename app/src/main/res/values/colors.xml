@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- BUTTON SAVE IN DRAWING ACTIVITY -->
+    <color name="pink_material_50">#FCE4EC</color>
+    <color name="pink_material_200">#F48FB1</color>
+    <color name="pink_material_400">#EC407A</color>
+
+    <!-- BUTTON ERASE IN DRAWING ACTIVITY -->
+    <color name="blue_material_50">#E3F2FD</color>
+    <color name="blue_material_200">#90CAF9</color>
+    <color name="blue_material_400">#42A5F5</color>
 </resources>

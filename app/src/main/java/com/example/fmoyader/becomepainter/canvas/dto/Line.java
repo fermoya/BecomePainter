@@ -15,6 +15,10 @@ public class Line {
     List<Point> points;
     private Paint paint;
 
+    private int colorId;
+
+    private long paintingId;
+
     public Line(Paint paint) {
         this.paint = paint;
         points = new ArrayList<>();
@@ -41,5 +45,29 @@ public class Line {
                 start = end;
             }
         }
+    }
+
+    public long getPaintingId() {
+        return paintingId;
+    }
+
+    public void setPaintingId(long paintingId) {
+        this.paintingId = paintingId;
+    }
+
+    public int getColorId() {
+        return colorId;
+    }
+
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
+    }
+
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
     }
 }

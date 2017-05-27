@@ -5,8 +5,9 @@ package com.example.fmoyader.becomepainter.canvas.dto;
  */
 
 public class Point {
-    float x;
-    float y;
+    private float x;
+    private float y;
+    private long lineId;
 
     public Point(float x, float y) {
         this.x = x;
@@ -27,5 +28,21 @@ public class Point {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public long getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(long lineId) {
+        this.lineId = lineId;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }

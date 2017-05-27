@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- BUTTONS IN DRAWING ACTIVITY -->
+    <dimen name="button_drawing_radius">100dp</dimen>
+    <dimen name="button_drawing_size">60dp</dimen>
+    <dimen name="shade_button_drawing_right">3dp</dimen>
+    <dimen name="dialog_margin">32dp</dimen>
+</resources>
