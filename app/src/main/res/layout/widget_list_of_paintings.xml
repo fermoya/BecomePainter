@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_padding">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_widget"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view_widget_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/widget_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/widget_contents_margin"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawableLeft="@drawable/become_painter_icon_32px"
+            android:drawableStart="@drawable/become_painter_icon_32px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_margin="@dimen/widget_contents_margin"/>
+
+        <ListView
+            android:id="@+id/list_view_paintings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/text_view_empty_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/widget_empty_list_message"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</FrameLayout>

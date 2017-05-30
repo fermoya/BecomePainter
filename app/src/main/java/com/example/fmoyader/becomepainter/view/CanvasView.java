@@ -1,17 +1,16 @@
-package com.example.fmoyader.becomepainter.canvas.view;
+package com.example.fmoyader.becomepainter.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.fmoyader.becomepainter.canvas.dto.Line;
-import com.example.fmoyader.becomepainter.canvas.dto.Painting;
-import com.example.fmoyader.becomepainter.canvas.dto.Point;
+import com.example.fmoyader.becomepainter.dto.Line;
+import com.example.fmoyader.becomepainter.dto.Painting;
+import com.example.fmoyader.becomepainter.dto.Point;
 
 /**
  * Created by fmoyader on 24/5/17.
@@ -26,6 +25,16 @@ public class CanvasView extends View {
     private Painting painting;
     private Line line;
     private boolean newPainting;
+
+    private OnDrawingListener onDrawingListener;
+
+    public void setOnDrawingListener(OnDrawingListener onDrawingListener) {
+        this.onDrawingListener = onDrawingListener;
+    }
+
+    public interface OnDrawingListener {
+        void onNewPaintingStarted();
+    }
 
     public CanvasView(Context context) {
         super(context);
@@ -50,9 +59,14 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (!newPainting) {
-            painting.drawLineInCanvas(line, canvas);
+            painting.drawLineInCanvas(context, line, canvas);
         } else {
             painting = new Painting();
+            newPainting = false;
+
+            if (onDrawingListener != null) {
+                onDrawingListener.onNewPaintingStarted();
+            }
         }
     }
 

@@ -27,10 +27,10 @@ public class SavePaintingDialogFragment extends DialogFragment {
         void onInfoValidated(String title, String author, String description);
     }
 
-    private OnPositiveButtonListener listener;
+    private OnPositiveButtonListener onPositiveButtonListener;
 
-    public void setListener(OnPositiveButtonListener listener) {
-        this.listener = listener;
+    public void setOnPositiveButtonListener(OnPositiveButtonListener onPositiveButtonListener) {
+        this.onPositiveButtonListener = onPositiveButtonListener;
     }
 
     @NonNull
@@ -46,14 +46,14 @@ public class SavePaintingDialogFragment extends DialogFragment {
 
         AlertDialog dialog = builder.setView(view)
                 .setCancelable(true)
-                .setPositiveButton(R.string.alert_save_text, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dialog_save_text, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setNegativeButton(R.string.alert_cancel_text, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dialog_cancel_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -74,8 +74,8 @@ public class SavePaintingDialogFragment extends DialogFragment {
                     || paintingAuthor.isEmpty()) {
                 errorTextView.setVisibility(View.VISIBLE);
             } else {
-                if (listener != null) {
-                    listener.onInfoValidated(paintingTitle, paintingAuthor, paintingDescription);
+                if (onPositiveButtonListener != null) {
+                    onPositiveButtonListener.onInfoValidated(paintingTitle, paintingAuthor, paintingDescription);
                 }
                 getDialog().dismiss();
             }

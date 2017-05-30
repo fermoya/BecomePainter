@@ -1,4 +1,4 @@
-package com.example.fmoyader.becomepainter.preferences;
+package com.example.fmoyader.becomepainter.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

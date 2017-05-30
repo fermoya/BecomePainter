@@ -5,21 +5,40 @@
     <string name="button_save_text">SAVE</string>
     <string name="button_erase_text">ERASE</string>
 
-    <!-- ERROR TAGS -->
-    <string name="error_sqlite_tag" translatable="false">SQLITE_ERROR</string>
-    <string name="dialog_erase_painting_message">Are you sure you want to erase your painting? You will not be able to get it back.</string>
-    <string name="dialog_erase_painting_title">ERASING PAINTING</string>
+    <!-- LOG TAGS -->
+    <string name="tag_error_sqlite" translatable="false">SQLITE_ERROR</string>
+    <string name="tag_debug_drawing" translatable="false">DRAWING</string>
+    <string name="tag_debug_syncing" translatable="false">SYNCING</string>
+    <string name="tag_debug_reminder" translatable="false">REMINDER</string>
 
     <!-- PREFERENCES -->
-    <string name="preference_pending_painting">preference_pending_painting</string>
+    <string name="preference_pending_painting" translatable="false">preference_pending_painting</string>
 
-    <!-- ALERT -->
-    <string name="alert_cancel_text">CANCEL</string>
-    <string name="alert_save_text">@string/button_save_text</string>
-    <string name="alert_erase_text">@string/button_erase_text</string>
-    <string name="author">*Author</string>
-    <string name="description">Description</string>
+    <!-- Dialogs -->
+    <string name="dialog_erase_painting_message">Are you sure you want to erase your painting? You will not be able to get it back.</string>
+    <string name="dialog_erase_painting_title">ERASING PAINTING</string>
+    <string name="dialog_cancel_text">CANCEL</string>
+    <string name="dialog_save_text">@string/button_save_text</string>
+    <string name="dialog_erase_text">@string/button_erase_text</string>
+    <string name="dialog_author_hint">*Author</string>
+    <string name="dialog_description_hint">Description</string>
     <string name="dialog_title_hint">*Title</string>
     <string name="dialog_alert_title">Save painting?</string>
-    <string name="alert_error_fill_required_fields_message">Please, fill in the required fieds</string>
+    <string name="dialog_error_fill_required_fields_message">Please, fill in the required fieds</string>
+
+    <!-- Painting defaults -->
+    <string name="default_author">Unknown</string>
+    <string name="default_title">@string/default_author</string>
+    <string name="default_number_of_lines" translatable="false">0</string>
+
+    <!-- Notification -->
+    <string name="notification_painting_saved_title">Painting saved!</string>
+    <string name="notification_painting_autosaved_title">Painting automatically saved!</string>
+    <string name="notification_painting_saved_description">Your painting has been successfully saved. Remember you can watch and edit it from the options menu</string>
+    <string name="notification_notification_reminder_title">Watch your painting!</string>
+    <string name="notification_reminder_description" formatted="false">Your painting %s, by %s, has %s lines that haven\'t been saved</string>
+    <string name="widget_title">Your Drawings</string>
+    <string name="widget_empty_list_message">You have no drawings to show</string>
+    <string name="tag_canvas_activity">CAVAS ACTIVITY</string>
+    <string name="tag_widget_factory">WIDGET</string>
 </resources>

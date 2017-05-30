@@ -70,7 +70,7 @@ public class DrawingContentProvider extends ContentProvider {
                             new String[]{id}, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case POINTS:
@@ -80,7 +80,7 @@ public class DrawingContentProvider extends ContentProvider {
                             selectionArgs, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case LINES_WITH_ID:
@@ -91,7 +91,7 @@ public class DrawingContentProvider extends ContentProvider {
                             new String[]{id}, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case LINES:
@@ -101,7 +101,7 @@ public class DrawingContentProvider extends ContentProvider {
                             selectionArgs, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case PAINTING_WITH_ID:
@@ -112,7 +112,7 @@ public class DrawingContentProvider extends ContentProvider {
                             new String[]{id}, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case PAINTING:
@@ -122,7 +122,7 @@ public class DrawingContentProvider extends ContentProvider {
                             selectionArgs, null, null, sortOrder
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             default:
@@ -156,7 +156,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PointContract.PointEntry.TABLE_NAME, null, values
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case LINES:
@@ -165,7 +165,7 @@ public class DrawingContentProvider extends ContentProvider {
                             LineContract.LineEntry.TABLE_NAME, null, values
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case PAINTING:
@@ -174,7 +174,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PaintingContract.PaintingEntry.TABLE_NAME, null, values
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             default:
@@ -204,7 +204,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PointContract.PointEntry.TABLE_NAME, "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case LINES_WITH_ID:
@@ -214,7 +214,7 @@ public class DrawingContentProvider extends ContentProvider {
                             LineContract.LineEntry.TABLE_NAME, "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case PAINTING_WITH_ID:
@@ -224,7 +224,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PaintingContract.PaintingEntry.TABLE_NAME, "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             default:
@@ -255,7 +255,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PointContract.PointEntry.TABLE_NAME, values, "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case LINES_WITH_ID:
@@ -265,7 +265,7 @@ public class DrawingContentProvider extends ContentProvider {
                             LineContract.LineEntry.TABLE_NAME, values, "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             case PAINTING_WITH_ID:
@@ -275,7 +275,7 @@ public class DrawingContentProvider extends ContentProvider {
                             PaintingContract.PaintingEntry.TABLE_NAME,values,  "_id = ?", new String[]{id}
                     );
                 } catch (SQLiteException e) {
-                    Log.e(getContext().getString(R.string.error_sqlite_tag), e.getStackTrace().toString());
+                    Log.e(getContext().getString(R.string.tag_error_sqlite), e.getStackTrace().toString());
                 }
                 break;
             default:
