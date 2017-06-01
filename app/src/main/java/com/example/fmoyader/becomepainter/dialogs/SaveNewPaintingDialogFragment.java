@@ -12,16 +12,23 @@ import android.widget.TextView;
 
 import com.example.fmoyader.becomepainter.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by fmoyader on 27/5/17.
  */
 
-public class SavePaintingDialogFragment extends DialogFragment {
+public class SaveNewPaintingDialogFragment extends DialogFragment {
 
-    private EditText descriptionEditText;
-    private EditText authorEditText;
-    private EditText titleEditText;
-    private TextView errorTextView;
+    @BindView(R.id.edit_text_painting_description)
+    EditText descriptionEditText;
+    @BindView(R.id.edit_text_painting_author)
+    EditText authorEditText;
+    @BindView(R.id.edit_text_painting_title)
+    EditText titleEditText;
+    @BindView(R.id.text_view_error)
+    TextView errorTextView;
 
     public interface OnPositiveButtonListener {
         void onInfoValidated(String title, String author, String description);
@@ -39,11 +46,7 @@ public class SavePaintingDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         View view = View.inflate(getContext(), R.layout.dialog_save_painting, null);
-        descriptionEditText = (EditText) view.findViewById(R.id.edit_text_painting_description);
-        authorEditText = (EditText) view.findViewById(R.id.edit_text_painting_author);
-        titleEditText = (EditText) view.findViewById(R.id.edit_text_painting_title);
-        errorTextView = (TextView) view.findViewById(R.id.text_view_error);
-
+        ButterKnife.bind(this, view);
         AlertDialog dialog = builder.setView(view)
                 .setCancelable(true)
                 .setPositiveButton(R.string.dialog_save_text, new DialogInterface.OnClickListener() {

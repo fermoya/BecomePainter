@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.fmoyader.becomepainter.activities.CanvasActivity">
 
-    <com.example.fmoyader.becomepainter.view.CanvasView
+    <com.example.fmoyader.becomepainter.views.CanvasView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,22 +22,20 @@
         android:theme="@style/buttonDrawActivity"
         android:layout_width="@dimen/button_drawing_size"
         android:layout_height="@dimen/button_drawing_size"
-        android:background="@drawable/pink_round_shape"
+        android:background="@drawable/pink_gradient_round_shape"
         android:text="@string/button_save_text"
-        android:onClick="showSavePaintingDialog"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="32dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button_reset"
+        android:id="@+id/button_erase"
         android:theme="@style/buttonDrawActivity"
         android:layout_width="@dimen/button_drawing_size"
         android:layout_height="@dimen/button_drawing_size"
-        android:background="@drawable/blue_round_shape"
+        android:background="@drawable/blue_gradient_round_shape"
         android:text="@string/button_erase_text"
-        android:onClick="showErasePaintingDialog"
         custom:layout_constraintRight_toRightOf="@id/button_save"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"

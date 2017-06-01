@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.example.fmoyader.becomepainter.R;
+import com.example.fmoyader.becomepainter.dialogs.SaveNewPaintingDialogFragment;
 import com.example.fmoyader.becomepainter.dto.Painting;
 import com.example.fmoyader.becomepainter.utils.BecomePainterWidgetUtils;
-import com.example.fmoyader.becomepainter.view.CanvasView;
-import com.example.fmoyader.becomepainter.dialogs.SavePaintingDialogFragment;
+import com.example.fmoyader.becomepainter.views.CanvasView;
 import com.example.fmoyader.becomepainter.services.PaintigNotSavedReminderJobService;
 import com.example.fmoyader.becomepainter.utils.DrawingPreferencesManager;
-import com.example.fmoyader.becomepainter.services.SyncPaintingService;
+import com.example.fmoyader.becomepainter.services.SavePaintingService;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -29,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CanvasActivity extends AppCompatActivity
-        implements SavePaintingDialogFragment.OnPositiveButtonListener, CanvasView.OnDrawingListener {
+        implements SaveNewPaintingDialogFragment.OnPositiveButtonListener, CanvasView.OnDrawingListener {
 
     public static final String EXTRA_PAINTING_ID = "extra_painting_id";
     @BindView(R.id.canvas)
@@ -45,12 +44,9 @@ public class CanvasActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas);
+        setContentView(R.layout.fragment_canvas);
         ButterKnife.bind(this);
         canvasView.setOnDrawingListener(this);
-
-        Intent intent = getIntent();
-        Log.d(getString(R.string.tag_canvas_activity), intent.hasExtra(EXTRA_PAINTING_ID) + "");
     }
 
     private void scheduleJob() {
@@ -82,7 +78,7 @@ public class CanvasActivity extends AppCompatActivity
     }
 
     public void showSavePaintingDialog(View view) {
-        SavePaintingDialogFragment dialogFragment = new SavePaintingDialogFragment();
+        SaveNewPaintingDialogFragment dialogFragment = new SaveNewPaintingDialogFragment();
         dialogFragment.setOnPositiveButtonListener(this);
         dialogFragment.show(getSupportFragmentManager(), null);
 
@@ -125,8 +121,8 @@ public class CanvasActivity extends AppCompatActivity
                 painting.setAuthor(getString(R.string.default_author));
             }
 
-            Intent intentToSyncPaintingService = new Intent(this, SyncPaintingService.class);
-            intentToSyncPaintingService.putExtra(SyncPaintingService.EXTRA_PAINTING, painting);
+            Intent intentToSyncPaintingService = new Intent(this, SavePaintingService.class);
+            intentToSyncPaintingService.putExtra(SavePaintingService.EXTRA_PAINTING, painting);
             startService(intentToSyncPaintingService);
         }
 
@@ -141,8 +137,8 @@ public class CanvasActivity extends AppCompatActivity
             painting.setDescription(description);
             painting.setTitle(title);
 
-            Intent intentToSyncPaintingService = new Intent(this, SyncPaintingService.class);
-            intentToSyncPaintingService.putExtra(SyncPaintingService.EXTRA_PAINTING, painting);
+            Intent intentToSyncPaintingService = new Intent(this, SavePaintingService.class);
+            intentToSyncPaintingService.putExtra(SavePaintingService.EXTRA_PAINTING, painting);
             startService(intentToSyncPaintingService);
 
             canvasView.reset();

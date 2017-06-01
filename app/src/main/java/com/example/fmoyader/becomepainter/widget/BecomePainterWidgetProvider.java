@@ -12,12 +12,13 @@ import android.widget.RemoteViews;
 
 import com.example.fmoyader.becomepainter.R;
 import com.example.fmoyader.becomepainter.activities.CanvasActivity;
+import com.example.fmoyader.becomepainter.activities.CanvasDrawerActivity;
 
 /**
  * Created by fmoyader on 29/5/17.
  */
 
-public class BecomePainterAppWidget extends AppWidgetProvider {
+public class BecomePainterWidgetProvider extends AppWidgetProvider {
     public static final String ACTION_UPDATE_LIST = "update_widget_list_action";
 
     @Override
@@ -36,14 +37,15 @@ public class BecomePainterAppWidget extends AppWidgetProvider {
             widget.setRemoteAdapter(R.id.list_view_paintings, intentToRemoteViewsService);
             widget.setEmptyView(R.id.list_view_paintings, R.id.text_view_empty_message);
 
-            Intent intentToMainActivity = new Intent(context, CanvasActivity.class);
+            //TODO: add id of fragment to choose
+            Intent intentToMainActivity = new Intent(context, CanvasDrawerActivity.class);
             PendingIntent intentClickGeneral = TaskStackBuilder.create(context)
                     .addNextIntent(intentToMainActivity)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
             widget.setOnClickPendingIntent(R.id.linear_layout_widget, intentClickGeneral);
 
-            Intent intentToDetailActivity = new Intent(context, CanvasActivity.class);
+            Intent intentToDetailActivity = new Intent(context, CanvasDrawerActivity.class);
             PendingIntent intentClickTemplate = TaskStackBuilder.create(context)
                     .addNextIntent(intentToDetailActivity)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -61,7 +63,7 @@ public class BecomePainterAppWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
         if(intent.getAction().equalsIgnoreCase(ACTION_UPDATE_LIST)){
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, BecomePainterAppWidget.class));
+            int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, BecomePainterWidgetProvider.class));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view_paintings);
         }
     }

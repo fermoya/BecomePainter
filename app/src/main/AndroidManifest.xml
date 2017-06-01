@@ -9,7 +9,11 @@
         android:roundIcon="@drawable/become_painter_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CanvasActivity">
+        <activity android:name=".activities.CanvasActivity"></activity>
+        <activity
+            android:name=".activities.CanvasDrawerActivity"
+            android:label="@string/title_activity_canvas_drawer"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,28 +27,33 @@
             android:exported="true" />
 
         <service
-            android:name=".services.SyncPaintingService"
-            android:exported="false"></service>
-
+            android:name=".services.SavePaintingService"
+            android:exported="false" />
         <service
             android:name=".services.PaintigNotSavedReminderJobService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".widget.BecomePainterAppWidget">
+        <receiver android:name=".widget.BecomePainterWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.fmoyader.widget.BecomePainterAppWidget.ACTION_UPDATE_LIST"/>
+                <action android:name="com.example.fmoyader.widget.BecomePainterAppWidget.ACTION_UPDATE_LIST" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info"/>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
         </receiver>
 
-        <service android:name=".widget.BecomePainterRemoteViewsService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".widget.BecomePainterRemoteViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".services.DeletePaintingService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.fmoyader.becomepainter.view;
+package com.example.fmoyader.becomepainter.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -59,9 +59,14 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (!newPainting) {
-            painting.drawLineInCanvas(context, line, canvas);
+            if (line != null) {
+                painting.drawNewLineInCanvas(context, line, canvas);
+            } else {
+                painting.drawInCanvas(context, canvas);
+            }
         } else {
             painting = new Painting();
+            line = new Line(paint);
             newPainting = false;
 
             if (onDrawingListener != null) {
@@ -118,6 +123,12 @@ public class CanvasView extends View {
 
     public void reset() {
         newPainting = true;
+        invalidate();
+    }
+
+    public void drawPainting(Painting painting) {
+        this.painting = painting;
+        newPainting = false;
         invalidate();
     }
 }

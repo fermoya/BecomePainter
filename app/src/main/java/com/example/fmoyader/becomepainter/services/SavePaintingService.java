@@ -10,12 +10,12 @@ import com.example.fmoyader.becomepainter.utils.NotificationsUtils;
 import com.example.fmoyader.becomepainter.utils.SQLiteUtils;
 
 
-public class SyncPaintingService extends IntentService {
+public class SavePaintingService extends IntentService {
 
     public static final String EXTRA_PAINTING = "extra_painting";
 
-    public SyncPaintingService() {
-        super(SyncPaintingService.class.getSimpleName());
+    public SavePaintingService() {
+        super(SavePaintingService.class.getSimpleName());
     }
 
     @Override

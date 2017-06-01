@@ -76,7 +76,7 @@ public class SQLiteUtils {
         values.put(PointEntry.COLUMN_Y, point.getY());
 
         String id;
-        if (point.isStored()) {
+        if (!point.isStored()) {
             Uri resultUri = context.getContentResolver().insert(PointEntry.CONTENT_URI, values);
             id = resultUri.getLastPathSegment();
         } else {
@@ -106,6 +106,24 @@ public class SQLiteUtils {
         }
 
         return paintings;
+    }
+
+    public static Painting fetchPaintingById(String paintingId, Context context) {
+        Painting painting = null;
+        Cursor cursor = context.getContentResolver().query(
+                PaintingEntry.CONTENT_URI.buildUpon().appendPath(paintingId).build(),
+                null, null, null, null
+        );
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                painting = mapCursor2Painting(cursor);
+                List<Line> lines = fetchAllLinesInPainting(context, painting.getId());
+                painting.setLines(lines);
+            }
+        }
+
+        return painting;
     }
 
     public static List<Painting> fetchAllPaintings(Context context) {
@@ -168,7 +186,7 @@ public class SQLiteUtils {
         return points;
     }
 
-    private static Point mapCursor2Point(Cursor cursor) {
+    public static Point mapCursor2Point(Cursor cursor) {
         Point point = new Point();
         point.setId(cursor.getLong(cursor.getColumnIndex(PointEntry._ID)));
         point.setLineId(cursor.getLong(cursor.getColumnIndex(PointEntry.COLUMN_LINE_ID)));
@@ -177,7 +195,7 @@ public class SQLiteUtils {
         return point;
     }
 
-    private static Line mapCursor2Line(Cursor cursor) {
+    public static Line mapCursor2Line(Cursor cursor) {
         Line line = new Line();
         line.setId(cursor.getLong(cursor.getColumnIndex(LineEntry._ID)));
         line.setPaintingId(cursor.getLong(cursor.getColumnIndex(LineEntry.COLUMN_PAINTING_ID)));
@@ -186,7 +204,7 @@ public class SQLiteUtils {
         return line;
     }
 
-    private static Painting mapCursor2Painting(Cursor cursor) {
+    public static Painting mapCursor2Painting(Cursor cursor) {
         Painting painting = new Painting();
         painting.setId(cursor.getLong(cursor.getColumnIndex(PaintingEntry._ID)));
         painting.setTitle(cursor.getString(cursor.getColumnIndex(PaintingEntry.COLUMN_TITLE)));

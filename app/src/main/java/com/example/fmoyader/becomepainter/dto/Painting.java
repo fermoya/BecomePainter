@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.fmoyader.becomepainter.R;
@@ -47,16 +48,21 @@ public class Painting implements Parcelable {
         }
     };
 
-    public void drawLineInCanvas(Context context, Line newLine, Canvas canvas) {
+    public void drawNewLineInCanvas(@NonNull Context context, Line newLine, @NonNull Canvas canvas) {
         if (newLine != null) {
             if (!lines.contains(newLine)) {
                 Log.d(context.getString(R.string.tag_debug_drawing), "Added new line");
                 lines.add(newLine);
             }
 
-            for (Line line : lines) {
-                line.drawInCanvas(canvas);
-            }
+            drawInCanvas(context, canvas);
+        }
+    }
+
+    public void drawInCanvas(@NonNull Context context, @NonNull Canvas canvas) {
+        Log.d(context.getString(R.string.tag_debug_drawing), "Drawing painting");
+        for (Line line : lines) {
+            line.drawInCanvas(canvas);
         }
     }
 
