@@ -93,7 +93,7 @@ public class SQLiteUtils {
         List<Painting> paintings = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(
                 PaintingEntry.CONTENT_URI,
-                null, null, null, null
+                null, null, null, "_ID DESC"
         );
 
         if (cursor != null) {

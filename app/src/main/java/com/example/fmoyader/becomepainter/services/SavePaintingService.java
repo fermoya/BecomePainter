@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.fmoyader.becomepainter.R;
 import com.example.fmoyader.becomepainter.dto.Painting;
+import com.example.fmoyader.becomepainter.utils.BecomePainterWidgetUtils;
 import com.example.fmoyader.becomepainter.utils.NotificationsUtils;
 import com.example.fmoyader.becomepainter.utils.SQLiteUtils;
 
@@ -26,6 +27,7 @@ public class SavePaintingService extends IntentService {
                 Log.d(getString(R.string.tag_debug_syncing), painting.getTitle() + " by " + painting.getAuthor() + " to be persisted");
                 SQLiteUtils.persistInDatabase(painting, getApplicationContext());
                 NotificationsUtils.sendNewPaintingSavedNotification(getApplicationContext());
+                BecomePainterWidgetUtils.updateWidget(getApplicationContext());
             }
         }
     }

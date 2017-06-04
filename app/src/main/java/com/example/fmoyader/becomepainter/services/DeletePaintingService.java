@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 
 import com.example.fmoyader.becomepainter.sqlite.contract.PaintingContract;
+import com.example.fmoyader.becomepainter.utils.BecomePainterWidgetUtils;
+import com.example.fmoyader.becomepainter.utils.NotificationsUtils;
 
 
 public class DeletePaintingService extends IntentService {
@@ -22,6 +24,7 @@ public class DeletePaintingService extends IntentService {
                     PaintingContract.PaintingEntry.CONTENT_URI.buildUpon().appendPath(paintingId).build(),
                     null, null
             );
+            BecomePainterWidgetUtils.updateWidget(getApplicationContext());
         }
     }
 

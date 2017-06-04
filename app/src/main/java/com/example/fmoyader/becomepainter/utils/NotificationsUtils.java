@@ -10,8 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
-import com.example.fmoyader.becomepainter.activities.CanvasActivity;
 import com.example.fmoyader.becomepainter.R;
+import com.example.fmoyader.becomepainter.activities.CanvasDrawerActivity;
 
 /**
  * Created by fmoyader on 28/5/17.
@@ -20,40 +20,69 @@ import com.example.fmoyader.becomepainter.R;
 public class NotificationsUtils {
 
     private static final int ID_PAINTING_SAVED_NOTIFICATION = 1000;
+    private static final int ACTION_SEE_DRAWINGS_INTENT_ID = 100;
+    private static final int CANVAS_INTENT_ID = 200;
 
     public static void sendNewPaintingSavedNotification(Context context) {
+        boolean isNotificationsActive = DrawingPreferencesManager.getInstance(context).isNotificationsActive();
+        if (!isNotificationsActive) {
+            return;
+        }
+
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        //TODO: differente acions to navigate to different scenes
-        //TODO: change to navigate to List of drawings
-        Intent intentToCanvasActivity = new Intent(context, CanvasActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                context, 0, intentToCanvasActivity, PendingIntent.FLAG_UPDATE_CURRENT);
-        Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.become_painter_icon);
+        PendingIntent contentIntent = buildContentIntent(context);
+        PendingIntent actionIntent = buildActionIntent(context);
+
+        Bitmap largeIcon = buildLargeIcon(context);
         Notification notification = builder.setAutoCancel(true)
                 .setContentTitle(context.getString(R.string.notification_painting_saved_title))
                 .setContentText(context.getString(R.string.notification_painting_saved_description))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.become_painter_icon)
                 .setLargeIcon(largeIcon)
-                .setContentIntent(pendingIntent)
+                .setContentIntent(contentIntent)
+                .addAction(
+                        R.drawable.ic_done_white_24dp,
+                        context.getString(R.string.notification_action_see_drawings),
+                        actionIntent
+                )
                 .build();
         notificationManager.notify(ID_PAINTING_SAVED_NOTIFICATION, notification);
     }
 
+    private static Bitmap buildLargeIcon(Context context) {
+        Resources res = context.getResources();
+        return BitmapFactory.decodeResource(res, R.drawable.become_painter_icon);
+    }
+
+    private static PendingIntent buildContentIntent(Context context) {
+        Intent intentToCanvasActivity = new Intent(context, CanvasDrawerActivity.class);
+        return PendingIntent.getActivity(
+                context, CANVAS_INTENT_ID, intentToCanvasActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private static PendingIntent buildActionIntent(Context context) {
+        Intent intentToDrawingListFragment = new Intent(context, CanvasDrawerActivity.class);
+        intentToDrawingListFragment.putExtra(CanvasDrawerActivity.EXTRA_SEE_DRAWINGS, true);
+        return PendingIntent.getActivity(
+                context, ACTION_SEE_DRAWINGS_INTENT_ID, intentToDrawingListFragment, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     public static void sendReminderNotification(Context context, String title, String author, String numberOfLines) {
+        boolean isNotificationsActive = DrawingPreferencesManager.getInstance(context).isNotificationsActive();
+        if (!isNotificationsActive) {
+            return;
+        }
+
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        Intent intentToCanvasActivity = new Intent(context, CanvasActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                context, 0, intentToCanvasActivity, PendingIntent.FLAG_UPDATE_CURRENT);
-        Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.become_painter_icon);
+        PendingIntent pendingIntent = buildContentIntent(context);
+        Bitmap largeIcon = buildLargeIcon(context);
 
         String message = String.format(
                 context.getString(R.string.notification_reminder_description),

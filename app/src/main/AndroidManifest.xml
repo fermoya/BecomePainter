@@ -9,7 +9,6 @@
         android:roundIcon="@drawable/become_painter_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CanvasActivity"></activity>
         <activity
             android:name=".activities.CanvasDrawerActivity"
             android:label="@string/title_activity_canvas_drawer"

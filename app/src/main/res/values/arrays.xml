@@ -5,4 +5,16 @@
         <item>@string/drawer_item_my_drawings</item>
         <item>@string/drawer_item_settings</item>
     </array>
+
+    <array name="preference_stroke_color_entries">
+        <item>@string/preference_stroke_color_entry_white</item>
+        <item>@string/preference_stroke_color_entry_black</item>
+        <item>@string/preference_stroke_color_entry_gray</item>
+    </array>
+
+    <array name="preference_stroke_color_values">
+        <item>@string/preference_stroke_color_value_white</item>
+        <item>@string/preference_stroke_color_value_black</item>
+        <item>@string/preference_stroke_color_value_gray</item>
+    </array>
 </resources>

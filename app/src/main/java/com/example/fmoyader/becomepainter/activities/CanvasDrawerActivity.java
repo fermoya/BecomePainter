@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.example.fmoyader.becomepainter.R;
 import com.example.fmoyader.becomepainter.fragments.CanvasFragment;
 import com.example.fmoyader.becomepainter.fragments.DrawingsListFragment;
+import com.example.fmoyader.becomepainter.fragments.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 public class CanvasDrawerActivity extends FragmentActivity
         implements AdapterView.OnItemClickListener, DrawingsListFragment.OnPaintingListListener {
 
+    public static final String EXTRA_SEE_DRAWINGS = "extra_see_drawings";
     @BindView(R.id.drawer_left_menu_options)
     ListView drawerMenuOptionsListView;
     @BindView(R.id.drawer_layout)
@@ -38,10 +40,14 @@ public class CanvasDrawerActivity extends FragmentActivity
 
         Fragment fragment = new CanvasFragment();
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(EXTRA_PAINTING_ID)) {
-            Bundle bundle = new Bundle();
-            bundle.putString(EXTRA_PAINTING_ID, intent.getStringExtra(EXTRA_PAINTING_ID));
-            fragment.setArguments(bundle);
+        if (intent != null) {
+            if (intent.hasExtra(EXTRA_PAINTING_ID)) {
+                Bundle bundle = new Bundle();
+                bundle.putString(EXTRA_PAINTING_ID, intent.getStringExtra(EXTRA_PAINTING_ID));
+                fragment.setArguments(bundle);
+            } else if (intent.hasExtra(EXTRA_SEE_DRAWINGS)){
+                fragment = new DrawingsListFragment();
+            }
         }
 
         swapContentFrame(fragment);
@@ -64,17 +70,20 @@ public class CanvasDrawerActivity extends FragmentActivity
             case 0:
                 Log.d(getString(R.string.tag_drawer), "Home section selected on the drawer");
                 fragment = new CanvasFragment();
-                swapContentFrame(fragment);
                 break;
             case 1:
                 Log.d(getString(R.string.tag_drawer), "My Drawings section selected on the drawer");
                 fragment = new DrawingsListFragment();
-                swapContentFrame(fragment);
                 break;
             case 2:
                 Log.d(getString(R.string.tag_drawer), "Settings section selected on the drawer");
+                fragment = new SettingsFragment();
                 break;
+            default:
+                throw new IllegalArgumentException("There is no drawer menu option for posiition " +  position);
         }
+
+        swapContentFrame(fragment);
 
         drawerMenuOptionsListView.setItemChecked(position, true);
         drawerLayout.closeDrawer(drawerMenuOptionsListView);

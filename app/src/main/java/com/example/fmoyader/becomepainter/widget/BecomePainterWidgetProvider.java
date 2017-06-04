@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.example.fmoyader.becomepainter.R;
-import com.example.fmoyader.becomepainter.activities.CanvasActivity;
 import com.example.fmoyader.becomepainter.activities.CanvasDrawerActivity;
 
 /**

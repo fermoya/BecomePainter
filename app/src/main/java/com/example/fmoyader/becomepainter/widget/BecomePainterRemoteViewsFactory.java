@@ -8,7 +8,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.fmoyader.becomepainter.R;
-import com.example.fmoyader.becomepainter.activities.CanvasActivity;
+import com.example.fmoyader.becomepainter.activities.CanvasDrawerActivity;
 import com.example.fmoyader.becomepainter.dto.Painting;
 import com.example.fmoyader.becomepainter.utils.SQLiteUtils;
 
@@ -56,7 +56,7 @@ class BecomePainterRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
         row.setTextViewText(R.id.text_view_title, painting.getTitle());
 
         Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(CanvasActivity.EXTRA_PAINTING_ID, painting.getId());
+        fillInIntent.putExtra(CanvasDrawerActivity.EXTRA_PAINTING_ID, painting.getId() + "");
         row.setOnClickFillInIntent(R.id.linear_layout_widget_item, fillInIntent);
 
         Log.d(context.getString(R.string.tag_widget_factory), "Position " + position + ": Added painting " + painting.getTitle() + " by " + painting.getAuthor());
